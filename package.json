@@ -1,0 +1,66 @@
+{
+  "name": "passport-apple-music",
+  "version": "1.0.0",
+  "description": "PassportJS strategy for generating music user token for Apple Music API.",
+  "main": "dist/passport-apple-music.js",
+  "umd:main": "dist/passport-apple-music.umd.js",
+  "module": "dist/passport-apple-music.mjs",
+  "files": [
+    "dist",
+    "readme.md"
+  ],
+  "dependencies": {
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/ms": "^0.7.31",
+    "@types/passport-oauth2": "^1.4.10",
+    "jsonwebtoken": "^8.5.1",
+    "ms": "^2.1.3",
+    "passport-oauth2": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-typescript": "^10.0.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-formatter-pretty": "^4.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-unicorn": "^22.0.0",
+    "jest": "^26.4.2",
+    "microbundle": "^0.12.0",
+    "prettier": "^2.0.4",
+    "ts-jest": "^26.3.0",
+    "typescript": "^4.0.3"
+  },
+  "scripts": {
+    "build": "microbundle -o dist/ --sourcemap false --compress false",
+    "dev": "microbundle watch -o dist/ --sourcemap false --compress false",
+    "test": "jest --coverage",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juro Oravec/passport-apple-music"
+  },
+  "keywords": [],
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "dist",
+      "coverage"
+    ],
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    }
+  },
+  "author": "Juro Oravec",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Juro Oravec/passport-apple-music/issues"
+  },
+  "homepage": "https://github.com/Juro Oravec/passport-apple-music#readme"
+}
