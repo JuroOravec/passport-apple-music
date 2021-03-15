@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Apple Music Login</title>
+    <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
+    <script>
+      (() => {
+        const token = '$TOKEN';
+        const redirectUri = '$REDIRECT_URI';
+        const state = '$STATE';
+        const appName = '$APP_NAME';
+        const appIconUrl = '$APP_ICON';
+        const showDialog = '$SHOW_DIALOG' === 'true';
+
+        let shouldClose = false;
+
+        if (appIconUrl) {       
+          const iconLink = document.createElement('link');
+          iconLink.setAttribute('rel', 'apple-music-app-icon');
+          iconLink.setAttribute('href', appIconUrl);
+          document.head.appendChild(iconLink);
+        }
+
+        const onMusicKitLoaded = () => Promise.resolve().then(async () => {
+          document.removeEventListener('musickitloaded', onMusicKitLoaded); 
+          MusicKit.configure({
+            developerToken: token,
+            app: {
+              name: appName,
+            }
+          });
+
+          const musicKit = MusicKit.getInstance();
+          const userToken = await musicKit.authorize();
+
+          const callbackUrl = new URL(redirectUri);
+          callbackUrl.searchParams.set('id_token_hint', token);
+          callbackUrl.searchParams.set('code', userToken);
+          callbackUrl.searchParams.set('state', state);
+
+          return fetch(callbackUrl.toString());
+        }).catch(async (e) => {
+          const callbackUrl = new URL(redirectUri);
+          callbackUrl.searchParams.set('id_token_hint', token);
+          callbackUrl.searchParams.set('error', encodeURIComponent(e.message));
+          callbackUrl.searchParams.set('state', state);
+          return fetch(callbackUrl.toString()).then((res) => {
+            if (res.status >= 400) {
+              shouldClose = true;
+            }
+          });
+        }).finally(() => {
+          if (showDialog) {
+            // Forget user's music token so their are prompted to login the next time
+            const isMusicUserToken = (s) => s.startsWith('music.') && s.endsWith('.u');
+            for (let i = 0; i < localStorage.length; i++) {
+              const key = localStorage.key(i);
+              if (isMusicUserToken(key)) localStorage.removeItem(key);
+            }
+          }
+          if (shouldClose) {
+            window.close();
+          }
+        });
+
+        document.addEventListener('musickitloaded', onMusicKitLoaded);
+      })();
+  </script>
+  </head>
+  <body>
+  </body>
+</html>

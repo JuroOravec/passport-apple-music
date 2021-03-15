@@ -43,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Juro Oravec/passport-apple-music"
+    "url": "git+https://github.com/JuroOravec/passport-apple-music"
   },
   "keywords": [],
   "jest": {
@@ -60,7 +60,7 @@
   "author": "Juro Oravec",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Juro Oravec/passport-apple-music/issues"
+    "url": "https://github.com/JuroOravec/passport-apple-music/issues"
   },
-  "homepage": "https://github.com/Juro Oravec/passport-apple-music#readme"
+  "homepage": "https://github.com/JuroOravec/passport-apple-music#readme"
 }
