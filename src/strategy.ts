@@ -22,12 +22,11 @@ interface AppleMusicStrategy {
   new (options: StrategyOptions, verify: VerifyFunction): void;
 }
 
-// TODO: Update docs
 /**
  * `Strategy` constructor.
  *
- * The Spotify authentication strategy authenticates requests by delegating to
- * Spotify using the OAuth 2.0 protocol.
+ * The Apple Music authentication strategy authenticates requests by delegating to
+ * Apple using the OAuth 2.0 protocol.
  *
  * Applications must supply a `verify` callback which accepts an `accessToken`,
  * `refreshToken` and service-specific `profile`, and then calls the `done`
@@ -35,28 +34,30 @@ interface AppleMusicStrategy {
  * credentials are not valid.  If an exception occured, `err` should be set.
  *
  * Options:
- *   - `clientID`      your Spotify application's app key
- *   - `clientSecret`  your Spotify application's app secret
- *   - `callbackURL`   URL to which Spotify will redirect the user
- *                     after granting authorization
- *   - `scope`         [Optional] An array of named scopes containing:
- *                     "user-read-private" if you want to request user's private
- *                     information such as display name and display picture url
- *                     "user-read-email" if you want to request user's email
+ *   - `teamID`              Your Apple Developer Membership Team ID
+ *   - `keyID`               Your Key ID with permission for for Apple Music.
+ *   - `privateKeyLocation`  Path to the file with private key corresponding to keyID
+ *   - `callbackURL`         URL to which the user will be redirected after granting authorization
  *
  * Examples:
  *
- *     passport.use(new SpotifyStrategy({
- *         clientID: 'app key',
- *         clientSecret: 'app secret'
- *         callbackURL: 'https://www.example.net/auth/spotify/callback'
- *       },
- *       function(accessToken, refreshToken, profile, done) {
- *         User.findOrCreate(..., function (err, user) {
- *           done(err, user);
- *         });
- *       }
- *     ));
+ *     passport.use(new AppleMusicStrategy({
+ *       teamID: "<YOUR_TEAM_ID>",
+ *       keyID: "<YOUR_KEY_ID>",
+ *       privateKeyLocation: "path/to/AuthKey_<YOUR_KEY_ID>.p8"
+ *       callbackURL: "<CALLBACK_URL>",
+ *       passReqToCallback: true
+ *     }, function(req, accessToken, refreshToken, profile, cb) {
+ *       // The JWT dev token used to generate the music user token can be accessed via req.query.id_token_hint
+ *       // Use this token in authorization header as
+ *       // Authorization: Bearer <DEV_TOKEN>
+ *       const devToken = req.query.id_token_hint;
+ *       // accessToken is the music user token. Always use this token with the devToken above.
+ *       // Music-User-Token: <MUSIC_USER_TOKEN>
+ *       const musicUserToken = accessToken;
+ *
+ *        cb(null, ...);
+ *     }));
  *
  * @param {Object} options
  * @param {Function} verify

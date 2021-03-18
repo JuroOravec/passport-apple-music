@@ -1,6 +1,7 @@
 import fs from 'fs';
 import jwt, { SignOptions } from 'jsonwebtoken';
 
+// Based on https://leemartin.dev/creating-an-apple-music-api-token-e0e5067e4281
 export const encodeMusicKitToken = (
   options: SignOptions & {
     teamId: string;
