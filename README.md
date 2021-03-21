@@ -15,6 +15,8 @@ Use this strategy to obtain tokens for personalized endpoints of Apple Music API
 
 ![Demo](./assets/demo.gif)
 
+[Read here about how this strategy works](https://dev.to/jurooravec/reverse-engineering-apple-s-musickitjs-to-create-apple-music-strategy-for-passportjs-12h)
+
 ## Installation
 
 Install the package via npm / yarn:
