@@ -1,6 +1,6 @@
 {
   "name": "passport-apple-music",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PassportJS strategy for generating music user token for Apple Music API.",
   "main": "dist/passport-apple-music.js",
   "umd:main": "dist/passport-apple-music.umd.js",
