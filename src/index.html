@@ -32,7 +32,16 @@
               name: appName,
             }
           });
-
+          
+          if (showDialog) {
+            // Forget user's music token so their are prompted to login when `authorize` is called
+            const isMusicUserToken = (s) => s.startsWith('music.') && s.endsWith('.u');
+            for (let i = 0; i < localStorage.length; i++) {
+              const key = localStorage.key(i);
+              if (isMusicUserToken(key)) localStorage.removeItem(key);
+            }
+          }
+          
           const musicKit = MusicKit.getInstance();
           const userToken = await musicKit.authorize();
 
@@ -53,14 +62,6 @@
             }
           });
         }).finally(() => {
-          if (showDialog) {
-            // Forget user's music token so their are prompted to login the next time
-            const isMusicUserToken = (s) => s.startsWith('music.') && s.endsWith('.u');
-            for (let i = 0; i < localStorage.length; i++) {
-              const key = localStorage.key(i);
-              if (isMusicUserToken(key)) localStorage.removeItem(key);
-            }
-          }
           if (shouldClose) {
             window.close();
           }
